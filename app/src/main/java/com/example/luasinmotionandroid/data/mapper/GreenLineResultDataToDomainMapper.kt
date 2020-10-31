@@ -23,7 +23,6 @@ class GreenLineResultDataToDomainMapper(
                 val body = response.body()
                 body?.let {
                     GreenLineResult(
-//                        etag = response.getEtag(),
 //                        stopInfo = getStopInfo(it)
                     )
                 } ?: GreenLineResult(errorResponse = ErrorResponse(EmptyResultBodyException()))

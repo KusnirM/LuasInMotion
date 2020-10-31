@@ -4,21 +4,20 @@ import com.example.luasinmotionandroid.domain.model.DatePart
 import com.example.luasinmotionandroid.domain.model.Direction
 import com.example.luasinmotionandroid.domain.model.Tram
 import com.example.luasinmotionandroid.domain.repository.LuanRepository
-import com.example.luasinmotionandroid.domain.usecase.base.EmptyParamUseCase
 import com.example.luasinmotionandroid.domain.usecase.base.Result
+import com.example.luasinmotionandroid.domain.usecase.base.UseCase
 import com.example.luasinmotionandroid.exceptions.EmptyResultBodyException
 import com.example.luasinmotionandroid.presentation.model.GreenLine
-import com.example.luasinmotionandroid.utils.currentTime
 import org.joda.time.DateTime
 import timber.log.Timber
 
 class GetGreenLineUseCase(
     private val loanRepository: LuanRepository
-) : EmptyParamUseCase<GreenLine>() {
+) : UseCase<GreenLine, DateTime>() {
 
-    override suspend fun run(): Result<GreenLine, Exception> {
+    override suspend fun run(params: DateTime): Result<GreenLine, Exception> {
         return try {
-            val datePart = getDatePart(currentTime())
+            val datePart = getDatePart(params)
             val result = loanRepository.getGreenLine(datePart.stop)
 
             if (result.errorResponse == null) {

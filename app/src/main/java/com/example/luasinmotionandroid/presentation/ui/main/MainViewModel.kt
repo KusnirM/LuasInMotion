@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.luasinmotionandroid.domain.usecase.greenLine.GetGreenLineUseCase
+import com.example.luasinmotionandroid.utils.currentTime
 
 class MainViewModel(
     private val getGreenLineUseCase: GetGreenLineUseCase
@@ -22,7 +23,7 @@ class MainViewModel(
 
     fun getGreenLine() {
         _greenLineLoader.value = true
-        getGreenLineUseCase.invoke(viewModelScope) {
+        getGreenLineUseCase.invoke(viewModelScope, currentTime()) {
             _greenLineLoader.value = false
             it.result(
                 onSuccess = {
@@ -32,8 +33,6 @@ class MainViewModel(
                     // todo needs different exceptions and mapper to mapp default exceptions to display message
                     _mainState.value = MainState.InboundState.Error("")
                     // handle unexpected results
-                },
-                onSkip = {
                 }
             )
         }

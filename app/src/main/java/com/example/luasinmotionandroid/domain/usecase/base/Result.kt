@@ -7,8 +7,7 @@ sealed class Result<out S, out F : Exception> {
 
     fun result(
         onSuccess: (S) -> Unit = {},
-        onFailure: (Exception) -> Unit = {},
-        onSkip: () -> Unit = {}
+        onFailure: (Exception) -> Unit = {}
     ): Unit = when (this) {
         is Success -> onSuccess(successType)
         is Failure -> onFailure(ex)

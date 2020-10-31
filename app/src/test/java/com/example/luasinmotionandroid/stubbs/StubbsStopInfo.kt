@@ -12,7 +12,7 @@ import org.joda.time.DateTime
  *
  */
 
-object StopInfoStub {
+object StubbsStopInfo {
     val created = DateTime(2020, 1, 1, 1, 1, 1)
     val stop = Stop.MARLBOROUGH
     val stopAbv = "mal" // todo merge together with stop enum
@@ -29,7 +29,6 @@ object StopInfoStub {
      *         Hence for test stubs this is the way i do so.
      */
     fun getStopInfo(
-
         created: DateTime = this.created,
         stop: Stop = this.stop,
         stopAbv: String = this.stopAbv,
@@ -45,7 +44,10 @@ object StopInfoStub {
         )
     }
 
-    fun direction(name: Direction.Name = this.name, tramList: List<Tram> = listOf(tram())): Direction {
+    fun direction(
+        name: Direction.Name = this.name,
+        tramList: List<Tram> = listOf(tram())
+    ): Direction {
         return Direction(name = name, tramList = tramList)
     }
 

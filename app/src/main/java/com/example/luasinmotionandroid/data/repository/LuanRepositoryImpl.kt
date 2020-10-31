@@ -11,14 +11,15 @@ class LuanRepositoryImpl(
     private val greenLineResultDataToDomainMapper: GreenLineResultDataToDomainMapper,
     private val luasApi: LuasApi
 ) : LuanRepository {
-    override suspend fun getGreenLine(stop: Stop): GreenLineResult {
+    override fun getGreenLine(stop: Stop): GreenLineResult {
+        val response = greenLineResultDataToDomainMapper.map(mockedResponse(stop))
 //        return greenLineResultDataToDomainMapper.map(
 //            luasApi.getGreenLine(
 //                stop = stop.serializedName
 //            )
 //        )
 
-        return greenLineResultDataToDomainMapper.map(mockedResponse(stop))
+        return response
     }
 
     fun mockedResponse(stop: Stop): String {

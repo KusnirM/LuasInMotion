@@ -10,7 +10,6 @@ import org.simpleframework.xml.Root
 import timber.log.Timber
 
 data class GreenLineResult(
-    val etag: String? = null,
     val stopInfo: StopInfo? = null,
     val errorResponse: ErrorResponse? = null
 )
