@@ -1,0 +1,64 @@
+package com.example.luasinmotionandroid
+
+import android.app.Application
+import com.example.luasinmotionandroid.data.di.dataModule
+import com.example.luasinmotionandroid.data.di.repositoryModule
+import com.example.luasinmotionandroid.di.applicationModule
+import com.example.luasinmotionandroid.domain.di.domainModule
+import com.example.luasinmotionandroid.presentation.di.presentationModule
+import net.danlew.android.joda.JodaTimeAndroid
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.KoinComponent
+import org.koin.core.context.startKoin
+import timber.log.Timber
+import timber.log.Timber.DebugTree
+
+class App : Application(), KoinComponent {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        initTime()
+        initCrashlytics()
+        initAnalytics()
+        initKoin()
+        initTimber()
+    }
+
+    private fun initTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
+    }
+
+    private fun initTime() {
+        JodaTimeAndroid.init(this)
+    }
+
+    private fun initKoin() {
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(
+                listOf(
+                    applicationModule,
+                    repositoryModule,
+                    dataModule,
+                    domainModule,
+                    presentationModule
+                )
+            )
+        }
+    }
+
+    private fun initAnalytics() {
+        // firebase ets
+    }
+
+    private fun initCrashlytics() {
+        if (!BuildConfig.DEBUG) {
+            // farbic is getting deprecated, hence firebase
+        }
+    }
+}

@@ -1,0 +1,3 @@
+package com.example.luasinmotionandroid.presentation.mapper
+
+class StopInfoToGreenLineMapper
