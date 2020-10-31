@@ -6,8 +6,4 @@ import com.example.luasinmotionandroid.domain.model.GreenLineResult
 interface LuanRepository {
 
     suspend fun getGreenLine(stop: Stop): GreenLineResult
-
-    suspend fun setGreenLineEtag(etag: String)
-    suspend fun getGreenLineEtag(): String?
-    suspend fun clearEtag()
 }

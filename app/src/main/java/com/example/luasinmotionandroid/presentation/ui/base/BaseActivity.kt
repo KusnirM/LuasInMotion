@@ -11,7 +11,6 @@ import androidx.lifecycle.LifecycleRegistry
 import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity(), BaseFragment.Callback {
-    // val analyticsVM: AnalyticsViewModel by viewModel()
 
     @Nullable
     var lifecycleOwner: ViewLifecycleOwner? = null

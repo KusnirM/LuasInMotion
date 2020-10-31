@@ -39,13 +39,13 @@ val dataModule = module {
     }
 
 //    //todo  * @deprecated we recommend switching to the JAXB converter.
-//    single(named("SimpleXmlConverterFactory")) { SimpleXmlConverterFactory.create() }
+    single(named("SimpleXmlConverterFactory")) { SimpleXmlConverterFactory.create() }
 
     single {
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(get())
-            .addConverterFactory(SimpleXmlConverterFactory.create())
+            .addConverterFactory(get(named("SimpleXmlConverterFactory")))
             .build()
             .create(LuasApi::class.java)
     }

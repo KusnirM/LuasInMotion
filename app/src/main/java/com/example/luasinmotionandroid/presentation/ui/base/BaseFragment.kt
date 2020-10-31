@@ -12,8 +12,7 @@ import androidx.lifecycle.LifecycleRegistry
 
 abstract class BaseFragment : Fragment() {
 
-    protected lateinit var baseFragmentCallback: Callback
-    // val analyticsVM: AnalyticsViewModel by viewModel()
+    private lateinit var baseFragmentCallback: Callback
 
     interface Callback {
         fun onNavigateTo(activity: Class<out BaseActivity>, intentDetails: Intent.() -> Unit)

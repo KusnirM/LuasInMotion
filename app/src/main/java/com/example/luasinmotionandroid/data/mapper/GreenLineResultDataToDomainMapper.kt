@@ -13,7 +13,6 @@ import fr.arnaudguyon.xmltojsonlib.XmlToJson
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Response
-import java.lang.NullPointerException
 
 class GreenLineResultDataToDomainMapper(
     private val errorResponseDataToDomainMapper: ErrorResponseDataToDomainMapper
@@ -27,10 +26,7 @@ class GreenLineResultDataToDomainMapper(
 //                        etag = response.getEtag(),
 //                        stopInfo = getStopInfo(it)
                     )
-
-                    // extract into new exception_>
-                }
-                    ?: GreenLineResult(errorResponse = ErrorResponse(NullPointerException("empty body")))
+                } ?: GreenLineResult(errorResponse = ErrorResponse(EmptyResultBodyException()))
             }
 
             else -> GreenLineResult(errorResponse = errorResponseDataToDomainMapper.map(response))

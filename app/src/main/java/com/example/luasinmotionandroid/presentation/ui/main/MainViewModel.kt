@@ -29,7 +29,7 @@ class MainViewModel(
                     _mainState.value = MainState.InboundState.Success(it)
                 },
                 onFailure = {
-                    // needs different exceptions and mapper to mapp default exceptions to display message
+                    // todo needs different exceptions and mapper to mapp default exceptions to display message
                     _mainState.value = MainState.InboundState.Error("")
                     // handle unexpected results
                 },

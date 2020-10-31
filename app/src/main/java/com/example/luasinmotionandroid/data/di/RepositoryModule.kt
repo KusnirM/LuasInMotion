@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
 
-    single<LuanRepository> { LuanRepositoryImpl(get(), get(), get()) }
+    single<LuanRepository> { LuanRepositoryImpl(get(), get()) }
 }

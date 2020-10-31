@@ -35,6 +35,12 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
+        animationsDisabled = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -105,9 +111,13 @@ dependencies {
 
     //time
     implementation 'net.danlew:android.joda:2.10.3'
+    testImplementation 'joda-time:joda-time:2.10.3'
 
-    //mockito kt
+    //mockito kt -> mocking in test
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+    //replacing stubbed android json test implementation, for using json in tests
+    testImplementation 'org.json:json:20180813'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

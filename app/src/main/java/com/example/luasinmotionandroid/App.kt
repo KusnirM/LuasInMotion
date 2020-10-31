@@ -3,7 +3,6 @@ package com.example.luasinmotionandroid
 import android.app.Application
 import com.example.luasinmotionandroid.data.di.dataModule
 import com.example.luasinmotionandroid.data.di.repositoryModule
-import com.example.luasinmotionandroid.di.applicationModule
 import com.example.luasinmotionandroid.domain.di.domainModule
 import com.example.luasinmotionandroid.presentation.di.presentationModule
 import net.danlew.android.joda.JodaTimeAndroid
@@ -42,7 +41,6 @@ class App : Application(), KoinComponent {
             androidContext(this@App)
             modules(
                 listOf(
-                    applicationModule,
                     repositoryModule,
                     dataModule,
                     domainModule,
@@ -53,7 +51,7 @@ class App : Application(), KoinComponent {
     }
 
     private fun initAnalytics() {
-        // firebase ets
+        //
     }
 
     private fun initCrashlytics() {

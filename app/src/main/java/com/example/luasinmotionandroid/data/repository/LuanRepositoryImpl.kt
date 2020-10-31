@@ -3,20 +3,17 @@ package com.example.luasinmotionandroid.data.repository
 import com.example.luasinmotionandroid.data.mapper.GreenLineResultDataToDomainMapper
 import com.example.luasinmotionandroid.data.model.Stop
 import com.example.luasinmotionandroid.data.network.LuasApi
-import com.example.luasinmotionandroid.data.storage.preferences.GreenLinePreferences
 import com.example.luasinmotionandroid.domain.model.GreenLineResult
 import com.example.luasinmotionandroid.domain.repository.LuanRepository
 
 // posibly later divide into 2 implmementations: local and remote
 class LuanRepositoryImpl(
     private val greenLineResultDataToDomainMapper: GreenLineResultDataToDomainMapper,
-    private val luasApi: LuasApi,
-    private val prefs: GreenLinePreferences
+    private val luasApi: LuasApi
 ) : LuanRepository {
     override suspend fun getGreenLine(stop: Stop): GreenLineResult {
 //        return greenLineResultDataToDomainMapper.map(
 //            luasApi.getGreenLine(
-//                etag = getGreenLineEtag()?:"",
 //                stop = stop.serializedName
 //            )
 //        )
@@ -24,23 +21,6 @@ class LuanRepositoryImpl(
         return greenLineResultDataToDomainMapper.map(mockedResponse(stop))
     }
 
-    override suspend fun setGreenLineEtag(etag: String) {
-        prefs.insert(KEY_ETAG, etag)
-    }
-
-    override suspend fun getGreenLineEtag(): String? {
-        return prefs.getNullableString(KEY_ETAG)
-    }
-
-    override suspend fun clearEtag() {
-        prefs.delete(KEY_ETAG)
-    }
-
-    companion object {
-        const val KEY_ETAG = "LuanRepositoryImpl.etag"
-    }
-
-    // todo move to test
     fun mockedResponse(stop: Stop): String {
         return when (stop) {
             Stop.STILLORGAN -> stubbedStillorgan
