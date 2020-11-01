@@ -6,4 +6,5 @@
     <dimen name="list_item_tram_text_padding">4dp</dimen>
     <dimen name="alert_dialogue_corner_radius">12dp</dimen>
     <dimen name="alert_dialog_default_button_padding">8dp</dimen>
+    <dimen name="toolbar_title_marging_left_standard">72dp</dimen>
 </resources>

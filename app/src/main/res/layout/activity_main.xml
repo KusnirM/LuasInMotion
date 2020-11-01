@@ -8,7 +8,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/getItems"
-        android:text="GET"
+        android:text="REFRESH"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="wrap_content"

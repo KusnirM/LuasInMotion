@@ -49,6 +49,6 @@ class StringUtilsKtTest {
     @Test
     fun `String isAnInt should return false if int max value is overflown`() {
         val s = "${Int.MAX_VALUE + 1L}"
-        assertEquals(true, s.isAnInt())
+        assertEquals(false, s.isAnInt())
     }
 }

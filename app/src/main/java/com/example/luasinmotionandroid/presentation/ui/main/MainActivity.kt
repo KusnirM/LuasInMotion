@@ -28,7 +28,7 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-//        vm.onResume()
+        vm.onResume()
     }
 
     private fun setViews() {
@@ -36,7 +36,7 @@ class MainActivity : BaseActivity() {
         tramList.adapter = tramAdapter
 
         getItems.setOnClickListener {
-            vm.onResume()
+            vm.getUpdates()
         }
 
         clearItems.setOnClickListener {

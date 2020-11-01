@@ -19,10 +19,10 @@ class MainViewModel(
     val mainState: LiveData<MainState> get() = _mainState
 
     fun onResume() {
-        getGreenLine()
+        getUpdates()
     }
 
-    fun getGreenLine() {
+    fun getUpdates() {
         _greenLineLoader.value = true
         getGreenLineUseCase.invoke(viewModelScope, currentTime()) {
             _greenLineLoader.value = false
