@@ -21,7 +21,7 @@ class GreenLineResultDataToDomainMapper : BaseResponseMapper() {
     fun map(response: Response): GreenLineResult {
         return when {
             response.isSuccessful -> {
-                response.body()?.string()?.let { body ->
+                response.body?.string()?.let { body ->
 
                     if (shouldThrowIllegalParamException(body)) {
                         throw IllegalParamException(body)
@@ -34,7 +34,7 @@ class GreenLineResultDataToDomainMapper : BaseResponseMapper() {
                      * i could check if we still can use retrofit for that
                      * but i tried SimpleXml and also JAXB and seems like there is not support
                      * hence i grabbed 1st library i found, converted into json and then to classes: )
-                      */
+                     */
                     val json = XmlToJson.Builder(body).build().toJson()
 
                     val obj = json?.optJSONObject("stopInfo")

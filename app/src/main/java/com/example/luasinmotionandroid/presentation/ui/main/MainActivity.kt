@@ -8,8 +8,8 @@ import com.example.luasinmotionandroid.presentation.customViews.DialogFactory
 import com.example.luasinmotionandroid.presentation.model.GreenLine
 import com.example.luasinmotionandroid.presentation.ui.base.BaseActivity
 import com.example.luasinmotionandroid.presentation.ui.main.adapter.TramAdapter
-import com.example.luasinmotionandroid.utils.isNotNullOrEmpty
 import com.example.luasinmotionandroid.presentation.utils.safelyObserve
+import com.example.luasinmotionandroid.utils.isNotNullOrEmpty
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 

@@ -1,6 +1,6 @@
 package com.example.luasinmotionandroid.data.utlis
 
-import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -16,12 +16,11 @@ class OkhttpUtilsKtTest {
             k3 to "v3"
         )
 
-        val actual = HttpUrl
-            .parse(URL)
+        val actual = URL.toHttpUrlOrNull()
             ?.newBuilder()
             ?.addQueryParams(params)
             ?.build()
-            ?.queryParameterNames()
+            ?.queryParameterNames
 
         val expected = setOf(k1, k3)
         assertEquals(expected, actual)

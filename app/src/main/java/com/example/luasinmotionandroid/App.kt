@@ -12,7 +12,6 @@ import org.koin.core.context.startKoin
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
-
 /**
  * Represent main application class
  * here are initialized libraries with app context

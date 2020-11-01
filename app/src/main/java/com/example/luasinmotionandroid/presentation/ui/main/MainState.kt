@@ -8,5 +8,4 @@ sealed class MainState {
         class Success(val greenLine: GreenLine) : GetGreenlineState()
         class Error(val errorDisplay: String) : GetGreenlineState()
     }
-
 }

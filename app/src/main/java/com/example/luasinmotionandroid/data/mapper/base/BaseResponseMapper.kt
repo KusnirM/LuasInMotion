@@ -24,10 +24,10 @@ open class BaseResponseMapper {
      * just in case we would not get 200
      */
     fun mapUnsuccessful(response: Response): ErrorResponse? {
-        val code = response.code()
+        val code = response.code
         return try {
             ErrorResponse(
-                error = response.message(),
+                error = response.message,
                 errorDisplay = getErrorDisplay(code),
                 httpStatusCode = code
             )

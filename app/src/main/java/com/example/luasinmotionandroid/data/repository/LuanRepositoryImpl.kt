@@ -8,7 +8,7 @@ import com.example.luasinmotionandroid.domain.model.GreenLineResult
 import com.example.luasinmotionandroid.domain.repository.LuanRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
@@ -31,23 +31,22 @@ class LuanRepositoryImpl(
         )
 
         val url = "${BuildConfig.BASE_URL}${Endpoint.STOP_INFO}"
-        val httpBuilder = HttpUrl
-            .parse(url)
-            ?.newBuilder()
-            ?.addQueryParams(params)
-            ?.build()
+        return try {
+            val httpBuilder = url.toHttpUrlOrNull()
+                ?.newBuilder()
+                ?.addQueryParams(params)
+                ?.build()
 
-        val request = Request.Builder()
-            .url(httpBuilder)//todo handle NPE
-            .build()
+            val request = Request.Builder()
+                .url(httpBuilder!!)
+                .build()
 
-        return withContext(Dispatchers.IO) {
-            try {
-                val response = okHttpClient.newCall(request).execute()
-                greenLineResultDataToDomainMapper.map(response)
-            } catch (e: Exception) {
-                greenLineResultDataToDomainMapper.map(e)
+            val response = withContext(Dispatchers.IO) {
+                okHttpClient.newCall(request).execute()
             }
+            greenLineResultDataToDomainMapper.map(response)
+        } catch (e: Exception) {
+            greenLineResultDataToDomainMapper.map(e)
         }
     }
 
