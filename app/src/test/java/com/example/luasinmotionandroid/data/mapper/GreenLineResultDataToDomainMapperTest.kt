@@ -33,7 +33,24 @@ class GreenLineResultDataToDomainMapperTest {
 
     // todo should be extracted values, then applied to json and expected objects
     @Test
-    fun `should mapp json object correctly`() {
+    fun `when broken tramList should still serialize whole object and return emptyTramList`() {
+        val actual = mapper.getStopInfo(JSONObject(jsonWithBrokenTramList))
+        val expected = StopInfo(
+            created = DateTime("2020-11-01T12:37:42"),
+            stop = Stop.fromJson("Stillorgan"),
+            message = "Green Line services operating normally",
+            directionList = listOf(
+                Direction(
+                    name = Direction.Name.fromJson("Outbound"),
+                    tramList = listOf()
+                )
+            )
+        )
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `should map json object correctly`() {
         val actual = mapper.getStopInfo(JSONObject(responseJson))
         val expected = StopInfo(
             created = DateTime("2020-10-31T12:55:50"),
@@ -88,11 +105,34 @@ class GreenLineResultDataToDomainMapperTest {
     }
 
     @Test
+    fun `handleDueMins should hande DUE text and keep it`() {
+        var actual = mapper.handleDueMins("DUE")
+        assertEquals("Due", actual)
+        actual = mapper.handleDueMins("Due")
+        assertEquals("Due", actual)
+        actual = mapper.handleDueMins("due")
+        assertEquals("Due", actual)
+    }
+
+    @Test
     fun `due mins should handle negative number and keep it as empty string`() {
         val mins = "-1"
         val actual = mapper.handleDueMins(mins)
         assertEquals("", actual)
     }
+
+    val jsonWithBrokenTramList =
+        """
+{
+    "stop": "Stillorgan",
+    "created": "2020-11-01T12:37:42",
+    "message": "Green Line services operating normally",
+    "direction": {
+        "name": "Outbound",
+        "tram": "destination"
+    }
+}
+        """.trimIndent()
 
     val jsonwithObects =
         """

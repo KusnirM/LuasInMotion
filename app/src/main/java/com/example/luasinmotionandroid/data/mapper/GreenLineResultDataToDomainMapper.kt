@@ -127,6 +127,11 @@ class GreenLineResultDataToDomainMapper : BaseResponseMapper() {
      */
 
     fun handleDueMins(dueMins: String): String {
-        return if (dueMins.isAnInt() && dueMins.toInt() > 0) dueMins else ""
+        /**
+         * i spotted there due, tbh do not remember if it was "DUE", "due", "Due"
+         * this way i keep it safe to do what is Intended
+         */
+        return if (dueMins.toUpperCase(Locale.ROOT) == "DUE") "Due"
+        else if (dueMins.isAnInt() && dueMins.toInt() > 0) dueMins else ""
     }
 }
