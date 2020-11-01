@@ -4,7 +4,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.luasinmotionandroid.R
 import com.example.luasinmotionandroid.domain.model.Tram
-import com.example.luasinmotionandroid.utils.inflate
+import com.example.luasinmotionandroid.presentation.utils.inflate
+
+/**
+ * not much to say here, apart of recycler is performing better then list adapter
+ */
 
 class TramAdapter : RecyclerView.Adapter<TramViewHolder>() {
 

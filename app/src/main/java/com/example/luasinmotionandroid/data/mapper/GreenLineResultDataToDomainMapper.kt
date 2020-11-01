@@ -27,9 +27,15 @@ class GreenLineResultDataToDomainMapper : BaseResponseMapper() {
                         throw IllegalParamException(body)
                     }
 
-                    // xml converter converts 1 tag in list into object, adding test to handle either array or object
-                    val json = XmlToJson.Builder(body).build()
-                        .toJson() // todo if whole api is based on xml move this to base mapping
+                    /**
+                     * as mentioned in base response mapper i believe i could move this transformation
+                     * to the base class and abstract it behind interface
+                     * i did not get chance to work with xml responses recently, with more time
+                     * i could check if we still can use retrofit for that
+                     * but i tried SimpleXml and also JAXB and seems like there is not support
+                     * hence i grabbed 1st library i found, converted into json and then to classes: )
+                      */
+                    val json = XmlToJson.Builder(body).build().toJson()
 
                     val obj = json?.optJSONObject("stopInfo")
                     getStopInfo(obj)?.let {
@@ -41,14 +47,16 @@ class GreenLineResultDataToDomainMapper : BaseResponseMapper() {
         }
     }
 
-    // these response bodies should not really be 200 error code, but as it is the case,
-    // we should threat them as exceptions
-    fun shouldThrowIllegalParamException(json: String): Boolean {
-        return json.toLowerCase(Locale.getDefault()).startsWith("exception")
-    }
-
     fun map(e: Exception): GreenLineResult {
         return GreenLineResult(errorResponse = mapException(e))
+    }
+
+    /**
+     *  these response bodies should not really be 200 error code, but as it is the case,
+     *  we should threat them as exceptions
+     */
+    fun shouldThrowIllegalParamException(json: String): Boolean {
+        return json.toLowerCase(Locale.getDefault()).startsWith("exception")
     }
 
     fun getStopInfo(json: JSONObject?): StopInfo? {
@@ -86,14 +94,6 @@ class GreenLineResultDataToDomainMapper : BaseResponseMapper() {
         )
     }
 
-    /**
-     * due mins can return an empty Value, hence int is not a best choice
-     * i rather let is as string, i believe there should be better option from api than that
-     * but as it is the case I rather added handler if server would send us some "random number or text"
-     * so we would not crash over there, i am testing if String.isAnInt, if not i also keep it as empty string
-     * would be great candidate to consult with server guys 1st why is it like that before coming to product team
-     */
-
     private fun nullableTramList(json: JSONObject): List<Tram> {
         val key = "tram"
         return try {
@@ -116,7 +116,17 @@ class GreenLineResultDataToDomainMapper : BaseResponseMapper() {
         )
     }
 
+    /**
+     * due minutes can return an empty value, hence int is not the best choice.
+     * Therefore I let is as string.
+     * I believe there should be better option from api than that
+     * but as it is the case I rather added handler if server would send us some "random number or text"
+     * so we would not crash over there, i am testing if String.isAnInt, if not i also keep it as empty string
+     * for the same reason i decided to threat negative number as empty string too.
+     * would be great candidate to consult with server guys 1st why is it like that before coming to product team
+     */
+
     fun handleDueMins(dueMins: String): String {
-        return if (dueMins.isAnInt()) dueMins else ""
+        return if (dueMins.isAnInt() && dueMins.toInt() > 0) dueMins else ""
     }
 }

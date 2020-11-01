@@ -7,6 +7,12 @@ import androidx.appcompat.app.AlertDialog
 import com.example.luasinmotionandroid.R
 import kotlinx.android.synthetic.main.alert_dialog_default.view.*
 
+/**
+ *
+ * I would leave UI on designer ( even i had projects without designer too ...
+ * This is just Dialog Factory to provide flexible alert dialog, with custom design,
+ * also no ugly callbacks hell
+ */
 object DialogFactory {
 
     fun showMessage(

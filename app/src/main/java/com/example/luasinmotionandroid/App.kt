@@ -2,7 +2,6 @@ package com.example.luasinmotionandroid
 
 import android.app.Application
 import com.example.luasinmotionandroid.data.di.dataModule
-import com.example.luasinmotionandroid.data.di.repositoryModule
 import com.example.luasinmotionandroid.domain.di.domainModule
 import com.example.luasinmotionandroid.presentation.di.presentationModule
 import net.danlew.android.joda.JodaTimeAndroid
@@ -12,6 +11,14 @@ import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
 import timber.log.Timber
 import timber.log.Timber.DebugTree
+
+
+/**
+ * Represent main application class
+ * here are initialized libraries with app context
+ * i split them into separate functions for better readability, part of separation of concerns.
+ * Once we will need to replace library it will be much clearer this way
+ */
 
 class App : Application(), KoinComponent {
 
@@ -40,9 +47,7 @@ class App : Application(), KoinComponent {
             androidLogger()
             androidContext(this@App)
             modules(
-                listOf(
-                    repositoryModule,
-                    dataModule,
+                dataModule + listOf(
                     domainModule,
                     presentationModule
                 )

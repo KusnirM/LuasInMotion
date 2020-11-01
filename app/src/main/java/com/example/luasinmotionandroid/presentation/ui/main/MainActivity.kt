@@ -9,9 +9,13 @@ import com.example.luasinmotionandroid.presentation.model.GreenLine
 import com.example.luasinmotionandroid.presentation.ui.base.BaseActivity
 import com.example.luasinmotionandroid.presentation.ui.main.adapter.TramAdapter
 import com.example.luasinmotionandroid.utils.isNotNullOrEmpty
-import com.example.luasinmotionandroid.utils.safelyObserve
+import com.example.luasinmotionandroid.presentation.utils.safelyObserve
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+
+/**
+ * as you can see here is really no logic, just setting up adapter, observing viewmodel states and setting up the ui
+ */
 
 class MainActivity : BaseActivity() {
 
@@ -56,8 +60,8 @@ class MainActivity : BaseActivity() {
             lifecycleOwner,
             Observer {
                 when (it) {
-                    is MainState.InboundState.Success -> displayGreenLineSuccess(it.greenLine)
-                    is MainState.InboundState.Error -> displayGreenLineError(it.errorDisplay)
+                    is MainState.GetGreenlineState.Success -> displayGreenLineSuccess(it.greenLine)
+                    is MainState.GetGreenlineState.Error -> displayGreenLineError(it.errorDisplay)
                 }
             }
         )

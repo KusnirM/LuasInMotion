@@ -87,6 +87,13 @@ class GreenLineResultDataToDomainMapperTest {
         assertEquals("", actual)
     }
 
+    @Test
+    fun `due mins should handle negative number and keep it as empty string`() {
+        val mins = "-1"
+        val actual = mapper.handleDueMins(mins)
+        assertEquals("", actual)
+    }
+
     val jsonwithObects =
         """
 {

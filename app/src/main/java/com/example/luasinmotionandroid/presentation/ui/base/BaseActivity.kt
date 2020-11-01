@@ -10,6 +10,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import timber.log.Timber
 
+/**
+ * Base Activity class
+ * i added just lifecycle owner so while moving back to activity would not stack observers
+ * for larger apps this would be the place yo add some class viewmodel for analytics, permissions,
+ * location tracking, storage: if some global prefs are required ...
+ */
+
 abstract class BaseActivity : AppCompatActivity(), BaseFragment.Callback {
 
     @Nullable

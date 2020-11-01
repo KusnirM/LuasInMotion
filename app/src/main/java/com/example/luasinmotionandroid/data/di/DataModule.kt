@@ -11,27 +11,13 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
-// data layer -> db, shared prefs, networking, if it gets "too crowdy just split into more modules"
-val dataModule = module {
+/**
+ * data layer module  -> db, shared prefs, networking
+ */
+val dataModule = listOf(
+    repositoryModule,
+    networkModule
+)
 
-    single { Gson() }
-    single<Interceptor>(named("httpLogger")) {
-        HttpLoggingInterceptor().setLevel(
-            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-            else HttpLoggingInterceptor.Level.BASIC
-        )
-    }
 
-    single {
-        Cache(androidContext().cacheDir, 10 * 1024 * 1024L)
-    }
 
-    single<OkHttpClient> {
-        OkHttpClient.Builder()
-            .callTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .cache(get())
-            .addInterceptor(get(named("httpLogger")))
-            .build()
-    }
-}

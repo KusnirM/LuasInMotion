@@ -21,11 +21,13 @@ class LuanRepositoryImpl(
 
         val params = mapOf(
             QueryParam.ACTION to "forecast",
-            QueryParam.STOP to stop.serializedName,
+            QueryParam.STOP to stop.abv,
             QueryParam.ENCRYPT to "${!BuildConfig.DEBUG}"
-            // I am not sure, but this may be for product use?
-            // If so this would be the way to do so, and we would need to add decrypting method
-            // to response mapper
+            /**
+             *  I am not sure, but this may be for product use?
+             *  If so this would be the way to do so,
+             *  and we would need to add decrypting method to response mapper
+             */
         )
 
         val url = "${BuildConfig.BASE_URL}${Endpoint.STOP_INFO}"
@@ -36,7 +38,7 @@ class LuanRepositoryImpl(
             ?.build()
 
         val request = Request.Builder()
-            .url(httpBuilder)
+            .url(httpBuilder)//todo handle NPE
             .build()
 
         return withContext(Dispatchers.IO) {

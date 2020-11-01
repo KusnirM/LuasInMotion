@@ -4,13 +4,9 @@ import com.example.luasinmotionandroid.presentation.model.GreenLine
 
 sealed class MainState {
 
-    sealed class InboundState : MainState() {
-        class Success(val greenLine: GreenLine) : InboundState()
-        class Error(val errorDisplay: String) : InboundState()
+    sealed class GetGreenlineState : MainState() {
+        class Success(val greenLine: GreenLine) : GetGreenlineState()
+        class Error(val errorDisplay: String) : GetGreenlineState()
     }
 
-    sealed class OutboundState : MainState() {
-        class Success(val greenLine: GreenLine) : OutboundState()
-        class Error(val errorDisplay: String) : OutboundState()
-    }
 }

@@ -4,6 +4,12 @@ import com.example.luasinmotionandroid.domain.model.ErrorResponse
 import okhttp3.Response
 import java.net.UnknownHostException
 
+/**
+ *As here is really just 1 response it gets bit tricky to decide what should belong here
+ * By default it should be default error handling,
+ * if other endpoints whould also use Xml converter, it would be good place to transform it to json over here
+ */
+
 open class BaseResponseMapper {
 
     open fun mapException(e: Exception, code: Int = -1): ErrorResponse {
@@ -30,14 +36,14 @@ open class BaseResponseMapper {
         }
     }
 
-    fun getErrorDisplay(e: Exception, code: Int): String {
+    private fun getErrorDisplay(e: Exception, code: Int): String {
         return when (e) {
             is UnknownHostException -> ErrorDisplay.UNKNOWN_HOST
             else -> getErrorDisplay()
         }
     }
 
-    fun getErrorDisplay(errorCode: Int = -1): String {
+    private fun getErrorDisplay(errorCode: Int = -1): String {
         return when (errorCode) {
             401 -> ErrorDisplay.E401
             // extract error displays

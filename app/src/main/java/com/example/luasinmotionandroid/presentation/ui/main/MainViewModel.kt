@@ -28,11 +28,11 @@ class MainViewModel(
             _greenLineLoader.value = false
             it.result(
                 onSuccess = {
-                    _mainState.value = MainState.InboundState.Success(it)
+                    _mainState.value = MainState.GetGreenlineState.Success(it)
                 },
                 onFailure = {
                     (it as? ErrorResponse)?.run {
-                        _mainState.value = MainState.InboundState.Error(it.errorDisplay ?: "")
+                        _mainState.value = MainState.GetGreenlineState.Error(it.errorDisplay ?: "")
                     }
                 }
             )

@@ -12,8 +12,6 @@ val domainModule = module {
     single { GetGreenLineUseCase(get()) }
 
     // mappers
-
-    // from response
     single { BaseResponseMapper() }
     single { GreenLineResultDataToDomainMapper() }
 }

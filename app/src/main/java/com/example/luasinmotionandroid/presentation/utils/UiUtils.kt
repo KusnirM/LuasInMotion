@@ -1,4 +1,4 @@
-package com.example.luasinmotionandroid.utils
+package com.example.luasinmotionandroid.presentation.utils
 
 import android.view.LayoutInflater
 import android.view.View
