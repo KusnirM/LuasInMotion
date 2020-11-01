@@ -15,11 +15,10 @@ import org.joda.time.DateTime
 object StubbsStopInfo {
     val created = DateTime(2020, 1, 1, 1, 1, 1)
     val stop = Stop.MARLBOROUGH
-    val stopAbv = "mal" // todo merge together with stop enum
     val message = "message"
     val name: Direction.Name = Direction.Name.OUTBOUND
 
-    val dueMins: Int = 1
+    val dueMins: String = "1"
     val destination: String = "destination"
 
     /**
@@ -31,14 +30,12 @@ object StubbsStopInfo {
     fun getStopInfo(
         created: DateTime = this.created,
         stop: Stop = this.stop,
-        stopAbv: String = this.stopAbv,
         message: String = this.message,
         directionList: List<Direction> = listOf(direction())
     ): StopInfo {
         return StopInfo(
             created = created,
             stop = stop,
-            stopAbv = stopAbv,
             message = message,
             directionList = directionList
         )
@@ -52,7 +49,7 @@ object StubbsStopInfo {
     }
 
     fun tram(
-        dueMins: Int = this.dueMins,
+        dueMins: String = this.dueMins,
         destination: String = this.destination
     ): Tram {
         return Tram(

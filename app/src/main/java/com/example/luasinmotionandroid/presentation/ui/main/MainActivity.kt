@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.luasinmotionandroid.R
+import com.example.luasinmotionandroid.presentation.customViews.DialogFactory
 import com.example.luasinmotionandroid.presentation.model.GreenLine
 import com.example.luasinmotionandroid.presentation.ui.base.BaseActivity
 import com.example.luasinmotionandroid.presentation.ui.main.adapter.TramAdapter
@@ -81,6 +82,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun displayGreenLineError(message: String) {
-        toast(message)
+        DialogFactory.showMessage(
+            context = this,
+            title = "Error Title", // question on design team
+            body1 = message
+        )
     }
 }

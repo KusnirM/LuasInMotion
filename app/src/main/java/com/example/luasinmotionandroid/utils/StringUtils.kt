@@ -5,3 +5,13 @@ fun String?.isNotNullOrEmpty(): Boolean {
         isNotEmpty()
     } ?: false
 }
+
+fun String?.isAnInt(): Boolean {
+    return try {
+        this ?: return false
+        val value = toIntOrNull()
+        value != null
+    } catch (ex: IllegalArgumentException) {
+        false
+    }
+}

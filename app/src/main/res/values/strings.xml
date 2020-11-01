@@ -6,4 +6,6 @@
     <string name="direction_name_outbound_display_name">Outbound</string>
     <string name="stop_marlborough">Marlborough</string>
     <string name="stop_stillorgan">Stillorgan</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

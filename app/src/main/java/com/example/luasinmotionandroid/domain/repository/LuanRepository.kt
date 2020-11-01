@@ -5,5 +5,5 @@ import com.example.luasinmotionandroid.domain.model.GreenLineResult
 
 interface LuanRepository {
 
-    fun getGreenLine(stop: Stop): GreenLineResult
+    suspend fun getGreenLine(stop: Stop): GreenLineResult
 }

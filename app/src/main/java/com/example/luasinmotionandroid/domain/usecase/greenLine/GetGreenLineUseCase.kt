@@ -10,6 +10,7 @@ import com.example.luasinmotionandroid.exceptions.EmptyResultBodyException
 import com.example.luasinmotionandroid.presentation.model.GreenLine
 import org.joda.time.DateTime
 import timber.log.Timber
+import java.net.SocketTimeoutException
 
 class GetGreenLineUseCase(
     private val loanRepository: LuanRepository
@@ -30,10 +31,30 @@ class GetGreenLineUseCase(
                     Result.Success(line)
                 } ?: throw EmptyResultBodyException()
             } else {
-                throw Exception(result.errorResponse.toString())
+
+                // currently not sure if same error handling would apply on other API endpoint, if so we could extract handling into default usecase
+                // otherwise we can decide here
+                throw result.errorResponse
             }
         } catch (e: Exception) {
-            Timber.e(e)
+            /**
+             * exception should be divided into expected, unexpected
+             * expected: discuss with client what should be message for different type of exceptions:
+             * HttpExceptions:  easily by error code: but seems like some issues ends up in code 200 anyway :)
+             * SocketTimeoutException -> friendly display
+             *
+             * i extracted IllegalParamException as result of wrong api ERROR handling: we get 200 with
+             * body starting as :  Exception:   this is high likely due to API update, or by issue in the app(should not happen as i added tests: ))
+             *
+             * Unexpected should just use general error, and Timber.e so we could find out easily what happened
+             */
+
+            when (e) {
+                is SocketTimeoutException -> Unit // we can exclude some exception from log.
+                else -> {
+                    Timber.e(e)
+                }
+            }
             Result.Failure(e)
         }
     }

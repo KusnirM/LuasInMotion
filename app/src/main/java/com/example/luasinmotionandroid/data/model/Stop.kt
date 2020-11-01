@@ -4,12 +4,19 @@ import androidx.annotation.StringRes
 import com.example.luasinmotionandroid.R
 import timber.log.Timber
 
-// depending of if we expect to update this list dynamically in api we would use either enum or simply
-// would be mapping list
-enum class Stop(val serializedName: String, @StringRes val displayName: Int) {
-    MARLBOROUGH("mar", R.string.stop_marlborough),
-    STILLORGAN("sti", R.string.stop_stillorgan),
-    UNKNOWN("", -1);
+/**
+ * I decided to declare it statically as enum for easier use through the app as I do not believe
+ * serialized names currently will be changing. But if it is the case I would use different approach:
+ *
+ *Using a map like:
+ * That would protect user even by unexpected server changes, and would be able to display results regardless
+ * But it would cost some readability and typeSafety over the app
+ * etc:    typealias StopsMap = Map<String, List<StopInfo>> where key -> abv
+ */
+enum class Stop(val serializedName: String = "", val abv: String = "", @StringRes val displayName: Int = -1) {
+    MARLBOROUGH("Marlborough", "mar", R.string.stop_marlborough),
+    STILLORGAN("Stillorgan", "sti", R.string.stop_stillorgan),
+    UNKNOWN;
 
     companion object {
         fun fromJson(json: String): Stop {

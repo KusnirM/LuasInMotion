@@ -4,4 +4,6 @@
     <dimen name="main_activity_direction_title_size">22sp</dimen>
     <dimen name="main_activity_direction_subtitle_size">18sp</dimen>
     <dimen name="list_item_tram_text_padding">4dp</dimen>
+    <dimen name="alert_dialogue_corner_radius">12dp</dimen>
+    <dimen name="alert_dialog_default_button_padding">8dp</dimen>
 </resources>

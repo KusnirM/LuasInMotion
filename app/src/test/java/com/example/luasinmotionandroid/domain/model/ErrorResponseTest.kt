@@ -13,6 +13,7 @@ class ErrorResponseTest {
         val errorResponse = ErrorResponse(
             throwable = ex,
             error = "error",
+            errorDisplay = "errorDisplay",
             httpStatusCode = code
         )
         val actual = "msg: $exMsg, code: $code"

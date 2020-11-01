@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.luasinmotionandroid.domain.model.ErrorResponse
 import com.example.luasinmotionandroid.domain.usecase.greenLine.GetGreenLineUseCase
 import com.example.luasinmotionandroid.utils.currentTime
 
@@ -30,9 +31,9 @@ class MainViewModel(
                     _mainState.value = MainState.InboundState.Success(it)
                 },
                 onFailure = {
-                    // todo needs different exceptions and mapper to mapp default exceptions to display message
-                    _mainState.value = MainState.InboundState.Error("")
-                    // handle unexpected results
+                    (it as? ErrorResponse)?.run {
+                        _mainState.value = MainState.InboundState.Error(it.errorDisplay ?: "")
+                    }
                 }
             )
         }
