@@ -1,9 +1,10 @@
 Architecture: MVVM Clean:
-Reason: even it is small up, as company grows app will grow too. 
-There will be new features, bug fixes. 
-If you build good foundation based on good practices/ principles. 
-You will be able to maintain, be able to add new features easier without changing the old code. 
-MVVM clean brings less coupling, readability. and reflect client's/product's usecases.
+Reason: even with tiny simple App like this one: as Company grows app will grow too. 
+There will be new features, there will be bugs found. 
+If you build the App on good foundation, based on good practices, adviced principles, 
+it will reflect in future.
+You will be able to maintain, be able to add new features easier without affecting other parts of the App. 
+MVVM clean brings less coupling, readability. and reflect better  client's expectations -> USECASES.
 
 Test coverage is at 85% after excluding presentation layer (Not much ui to test), di files, BuildConfig class,..
 Last fixes were for BaseResponseMapper: missing few tests over there, 
